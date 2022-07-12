@@ -74,15 +74,7 @@ public class MainController {
 
         return ResponseEntity.ok(new JsonResponse("Ok"));
     }
-    @Autowired
-    private ViewedRep viewedRep;
-    @GetMapping(value = "/test")
 
-    public ResponseEntity<String> test(){
-        Viewed v = new Viewed();
-        viewedRep.save(v);
-        return ResponseEntity.ok("))");
-    }
 
 
     /**

@@ -8,6 +8,8 @@ import com.example.cds.dto.ContentDTO;
 import com.example.cds.dto.TargetDTO;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import lombok.extern.java.Log;
+import lombok.extern.log4j.Log4j2;
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
 import org.apache.http.HttpStatus;
@@ -30,6 +32,7 @@ import java.util.stream.Collectors;
 
 // главный сервис, будет получать таргет и наполнять его контентом обращаясб к сторонним сервисам
 @Service
+@Log4j2
 public class MainServiceImpl implements MainService {
 
     @Value("${ams.address}")
