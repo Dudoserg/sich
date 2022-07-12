@@ -18,15 +18,13 @@ public class SendViewed {
 
     @Scheduled(fixedDelay = 10000)
     public void scheduleFixedDelayTask()  {
-        log.error("error scheduleFixedDelayTask");
-        log.info("info  scheduleFixedDelayTask");
         try {
             System.out.println("shedule...");
             mainService.sendViewedToAms();
         } catch (Exception e) {
             //e.printStackTrace();
             // TODO log
-
+            log.error("error scheduleFixedDelayTask");
             System.out.println("exception");
         }
     }
