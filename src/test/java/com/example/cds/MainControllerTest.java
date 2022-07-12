@@ -4,6 +4,7 @@ package com.example.cds;
 import com.example.cds.entitty.Viewed;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.hamcrest.MatcherAssert;
+import org.hamcrest.Matchers;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,6 +22,7 @@ import java.util.Map;
 import static org.hamcrest.MatcherAssert.*;
 import static org.hamcrest.Matchers.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @SpringBootTest
@@ -43,15 +45,20 @@ public class MainControllerTest {
                         .content(JSON)
         )
                 .andExpect(status().isBadRequest())
+                .andExpect(jsonPath("$", Matchers.hasKey("validationErrors")))
+                .andExpect(jsonPath("$.validationErrors", Matchers.hasKey("userGuid")))
+                .andExpect(jsonPath("$.validationErrors.userGuid", equalTo("'user_guid' cannot be blank")))
                 .andReturn();
-        String contentAsString = result.getResponse().getContentAsString();
-
-        Map<String,Object> map = new ObjectMapper().readValue(contentAsString, HashMap.class);
-
-
-        assertThat(map, hasKey("validationErrors"));
-        Map<String,Object> validationErrorsMap = (Map<String, Object>) map.get("validationErrors");
-        assertThat(validationErrorsMap, hasKey("userGuid"));
+        // OR
+//        String contentAsString = result.getResponse().getContentAsString();
+//
+//        Map<String,Object> map = new ObjectMapper().readValue(contentAsString, HashMap.class);
+//
+//
+//
+//        assertThat(map, hasKey("validationErrors"));
+//        Map<String,Object> validationErrorsMap = (Map<String, Object>) map.get("validationErrors");
+//        assertThat(validationErrorsMap, hasKey("userGuid"));
 
         System.out.println();
     }
