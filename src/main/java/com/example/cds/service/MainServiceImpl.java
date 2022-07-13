@@ -167,8 +167,7 @@ public class MainServiceImpl implements MainService {
         httpPost.setEntity(stringEntity);
 
         /// выполнение запроса
-        HttpResponse response = client.execute(httpPost);
-        int statusCode = response.getStatusLine().getStatusCode();
+        HttpResponse response = client.execute(httpPost);int statusCode = response.getStatusLine().getStatusCode();
         if(statusCode != HttpStatus.SC_OK)
             throw new Exception();
 
